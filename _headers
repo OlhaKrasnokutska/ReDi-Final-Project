@@ -1,0 +1,7 @@
+/*
+  Content-Security-Policy:
+    default-src 'self';
+    script-src 'self' https://webchat.botframework.com;
+    connect-src 'self' https://webchat.botframework.com;
+    img-src 'self' https://webchat.botframework.com;
+    style-src 'self' 'unsafe-inline' https://webchat.botframework.com;
