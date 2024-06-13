@@ -4742,7 +4742,8 @@
   <img src="icon2.jpeg" alt="Chatbot Trigger Image">
 </div>
 <div id="webchat-container" style="display: none; position: fixed; bottom: 80px; right: 10px; z-index: 999;">
-  <iframe id="botFrame" style='min-width: 400px; width: 400px; min-height: 500px; height: 500px; border: 1px solid #ccc;' allow="microphone *; camera *"></iframe>
+  <iframe id="botFrame" src='https://webchat.botframework.com/embed/one-more-try?s=4DYwkylDQHs.cic7BcJmHe1d4-_hvLBVQJpNprtcWTMFg08rKj1pOWA' 
+          style='min-width: 400px; width: 400px; min-height: 500px; height: 500px; border: 1px solid #ccc;' allow="microphone *; camera *"></iframe>
 </div>
 
 
@@ -11007,18 +11008,6 @@
           var webchatContainer = document.getElementById("webchat-container");
           var botFrame = document.getElementById("botFrame");
 
-          // Load config.json dynamically
-          fetch('config.json')
-              .then(response => response.json())
-              .then(config => {
-                  const secretKey = config.secretKey;
-                  const iframeSrc = `https://webchat.botframework.com/embed/one-more-try?s=${encodeURIComponent(secretKey)}`;
-                  
-                  // Set iframe src
-                  botFrame.src = iframeSrc;
-              })
-              .catch(error => console.error('Error loading config.json:', error));
-
           // Toggle chatbot visibility
           chatbotTrigger.addEventListener("click", function(event) {
               event.stopPropagation(); // Prevent event from bubbling up
@@ -11030,6 +11019,18 @@
               if (event.target !== chatbotTrigger && !webchatContainer.contains(event.target)) {
                   webchatContainer.style.display = "none";
               }
+          });
+
+          // Prevent iframe from closing when clicking inside it
+          botFrame.addEventListener("load", function() {
+              botFrame.contentWindow.document.body.addEventListener("click", function(event) {
+                  event.stopPropagation(); // Prevent event from bubbling up
+              });
+
+              // Focus event to keep iframe open when interacting with inputs
+              botFrame.contentWindow.document.addEventListener("focus", function() {
+                  webchatContainer.style.display = "block";
+              }, true);
           });
 
           // Ensure iframe stays open when hovering over it
