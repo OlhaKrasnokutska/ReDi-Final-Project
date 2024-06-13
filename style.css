@@ -1,0 +1,19 @@
+.fixed-picture {
+  position: fixed;
+  bottom: 5%;
+  left: 5%;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.fixed-picture img {
+  width: 20%;
+  height: auto;
+  border-radius: 15px;
+  border: 1px solid red;
+}
+
+#webchat-container {
+  background-color: white; /* Optional: Add a background color */
+  border: 1px solid #ccc; /* Optional: Add a border */
+}
